@@ -29,6 +29,7 @@
 @interface MDCParallaxView : UIView
 
 @property (nonatomic, weak) id<UIScrollViewDelegate> scrollViewDelegate;
+@property (nonatomic, readonly) UIScrollView *scrollView;
 @property (nonatomic, assign) CGFloat backgroundHeight;
 
 - (id)initWithBackgroundView:(UIView *)backgroundView

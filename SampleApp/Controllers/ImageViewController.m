@@ -62,9 +62,10 @@
 
     MDCParallaxView *parallaxView = [[MDCParallaxView alloc] initWithBackgroundView:backgroundImageView
                                                                      foregroundView:textView];
+    parallaxView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    parallaxView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     parallaxView.backgroundHeight = 250.0f;
     parallaxView.scrollViewDelegate = self;
-    parallaxView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.view addSubview:parallaxView];
 }
 
