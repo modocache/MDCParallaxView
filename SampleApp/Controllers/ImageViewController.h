@@ -1,4 +1,4 @@
-//  AppDelegate.m
+//  ImageViewController.h
 //
 //  Copyright (c) 2012 modocache
 //
@@ -23,21 +23,9 @@
 //
 
 
-#import "AppDelegate.h"
-#import "ImageViewController.h"
+#import <UIKit/UIKit.h>
 
 
-@implementation AppDelegate
-
-
-#pragma mark - UIApplicationDelegate Protocol Methods
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    self.window.rootViewController = [ImageViewController new];
-    return YES;
-}
+@interface ImageViewController : UIViewController
 
 @end

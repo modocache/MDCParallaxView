@@ -13,6 +13,9 @@
 		DAB84D05164755DE000AB1FE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DAB84D03164755DE000AB1FE /* InfoPlist.strings */; };
 		DAB84D07164755DE000AB1FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB84D06164755DE000AB1FE /* main.m */; };
 		DAB84D0B164755DE000AB1FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB84D0A164755DE000AB1FE /* AppDelegate.m */; };
+		DAB84D2116475797000AB1FE /* MDCParallaxView.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB84D2016475797000AB1FE /* MDCParallaxView.m */; };
+		DAB84D251647586C000AB1FE /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAB84D241647586C000AB1FE /* ImageViewController.m */; };
+		DAC3D8E516475B2A00320551 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = DAC3D8E416475B2A00320551 /* background.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,11 @@
 		DAB84D08164755DE000AB1FE /* SampleApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SampleApp-Prefix.pch"; sourceTree = "<group>"; };
 		DAB84D09164755DE000AB1FE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		DAB84D0A164755DE000AB1FE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		DAB84D1F16475797000AB1FE /* MDCParallaxView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDCParallaxView.h; sourceTree = "<group>"; };
+		DAB84D2016475797000AB1FE /* MDCParallaxView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDCParallaxView.m; sourceTree = "<group>"; };
+		DAB84D231647586C000AB1FE /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
+		DAB84D241647586C000AB1FE /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
+		DAC3D8E416475B2A00320551 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,8 @@
 		DAB84CEB164755DE000AB1FE = {
 			isa = PBXGroup;
 			children = (
+				DAB84D1F16475797000AB1FE /* MDCParallaxView.h */,
+				DAB84D2016475797000AB1FE /* MDCParallaxView.m */,
 				DAB84D00164755DE000AB1FE /* SampleApp */,
 				DAB84CF9164755DE000AB1FE /* Frameworks */,
 				DAB84CF7164755DE000AB1FE /* Products */,
@@ -74,6 +84,8 @@
 			children = (
 				DAB84D09164755DE000AB1FE /* AppDelegate.h */,
 				DAB84D0A164755DE000AB1FE /* AppDelegate.m */,
+				DAB84D221647584D000AB1FE /* Controllers */,
+				DAC3D8E316475B2A00320551 /* Resources */,
 				DAB84D01164755DE000AB1FE /* Supporting Files */,
 			);
 			path = SampleApp;
@@ -88,6 +100,23 @@
 				DAB84D08164755DE000AB1FE /* SampleApp-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAB84D221647584D000AB1FE /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DAB84D231647586C000AB1FE /* ImageViewController.h */,
+				DAB84D241647586C000AB1FE /* ImageViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		DAC3D8E316475B2A00320551 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				DAC3D8E416475B2A00320551 /* background.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAB84D05164755DE000AB1FE /* InfoPlist.strings in Resources */,
+				DAC3D8E516475B2A00320551 /* background.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,6 +184,8 @@
 			files = (
 				DAB84D07164755DE000AB1FE /* main.m in Sources */,
 				DAB84D0B164755DE000AB1FE /* AppDelegate.m in Sources */,
+				DAB84D2116475797000AB1FE /* MDCParallaxView.m in Sources */,
+				DAB84D251647586C000AB1FE /* ImageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

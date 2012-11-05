@@ -1,4 +1,4 @@
-//  AppDelegate.m
+//  MDCParallaxView.h
 //
 //  Copyright (c) 2012 modocache
 //
@@ -23,21 +23,15 @@
 //
 
 
-#import "AppDelegate.h"
-#import "ImageViewController.h"
+#import <UIKit/UIKit.h>
 
 
-@implementation AppDelegate
+@interface MDCParallaxView : UIView
 
+@property (nonatomic, weak) id<UIScrollViewDelegate> scrollViewDelegate;
+@property (nonatomic, assign) CGFloat backgroundHeight;
 
-#pragma mark - UIApplicationDelegate Protocol Methods
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
-    self.window.rootViewController = [ImageViewController new];
-    return YES;
-}
+- (id)initWithBackgroundView:(UIView *)backgroundView
+              foregroundView:(UIView *)foregroundView;
 
 @end
