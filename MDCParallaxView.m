@@ -87,6 +87,33 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 }
 
 
+#pragma mark - Message forwarding for scrollView Delegate
+
+/* called when not implementing a method asked by [respondsToSelector:]*/
+- (void) forwardInvocation:(NSInvocation *)anInvocation{
+    
+    // ask delegate if it's responding to selector
+    if ([self.scrollViewDelegate respondsToSelector:[anInvocation selector]])
+        [anInvocation invokeWithTarget:self.scrollViewDelegate];
+    else
+        [super forwardInvocation:anInvocation];
+}
+
+/* ask the delegate if responds to a selector which we don't */
+- (BOOL)respondsToSelector:(SEL)aSelector
+{
+    if ( [super respondsToSelector:aSelector] ){
+        return YES;
+    }
+    else {
+        // respond to selector if the delegate does
+        if ([self.scrollViewDelegate respondsToSelector:aSelector]){
+            return YES;
+        }
+    }
+    return NO;
+}
+
 #pragma mark - UIScrollViewDelegate Protocol Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -95,87 +122,6 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
         [self.scrollViewDelegate scrollViewDidScroll:scrollView];
     }
 }
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewDidEndDecelerating:scrollView];
-    }
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
-    }
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewDidEndScrollingAnimation:scrollView];
-    }
-}
-
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView
-                       withView:(UIView *)view
-                        atScale:(float)scale {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
-    }
-}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewDidScrollToTop:scrollView];
-    }
-}
-
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewDidZoom:scrollView];
-    }
-}
-
-- (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        return [self.scrollViewDelegate scrollViewShouldScrollToTop:scrollView];
-    }
-    return YES;
-}
-
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewWillBeginDecelerating:scrollView];
-    }
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewWillBeginDragging:scrollView];
-    }
-}
-
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewWillBeginZooming:scrollView withView:view];
-    }
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView
-                     withVelocity:(CGPoint)velocity
-              targetContentOffset:(inout CGPoint *)targetContentOffset {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        [self.scrollViewDelegate scrollViewWillEndDragging:scrollView
-                                              withVelocity:velocity
-                                       targetContentOffset:targetContentOffset];
-    }
-}
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    if ([self.scrollViewDelegate respondsToSelector:_cmd]) {
-        return [self.scrollViewDelegate viewForZoomingInScrollView:scrollView];
-    }
-    return nil;
-}
-
 
 #pragma mark - Public Interface
 
