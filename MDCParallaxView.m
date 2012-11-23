@@ -69,6 +69,22 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 }
 
 
+#pragma mark - NSObject Overrides
+
+- (void)forwardInvocation:(NSInvocation *)anInvocation {
+    if ([self.scrollViewDelegate respondsToSelector:[anInvocation selector]]) {
+        [anInvocation invokeWithTarget:self.scrollViewDelegate];
+    } else {
+        [super forwardInvocation:anInvocation];
+    }
+}
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    return ([super respondsToSelector:aSelector] ||
+            [self.scrollViewDelegate respondsToSelector:aSelector]);
+}
+
+
 #pragma mark - UIView Overrides
 
 - (void)setFrame:(CGRect)frame {
@@ -86,33 +102,6 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
     self.foregroundScrollView.autoresizingMask = autoresizingMask;
 }
 
-
-#pragma mark - Message forwarding for scrollView Delegate
-
-/* called when not implementing a method asked by [respondsToSelector:]*/
-- (void) forwardInvocation:(NSInvocation *)anInvocation{
-    
-    // ask delegate if it's responding to selector
-    if ([self.scrollViewDelegate respondsToSelector:[anInvocation selector]])
-        [anInvocation invokeWithTarget:self.scrollViewDelegate];
-    else
-        [super forwardInvocation:anInvocation];
-}
-
-/* ask the delegate if responds to a selector which we don't */
-- (BOOL)respondsToSelector:(SEL)aSelector
-{
-    if ( [super respondsToSelector:aSelector] ){
-        return YES;
-    }
-    else {
-        // respond to selector if the delegate does
-        if ([self.scrollViewDelegate respondsToSelector:aSelector]){
-            return YES;
-        }
-    }
-    return NO;
-}
 
 #pragma mark - UIScrollViewDelegate Protocol Methods
 
