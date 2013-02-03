@@ -58,6 +58,7 @@
     textView.textAlignment = NSTextAlignmentCenter;
     textView.font = [UIFont systemFontOfSize:14.0f];
     textView.textColor = [UIColor darkTextColor];
+    textView.scrollsToTop = NO;
     textView.editable = NO;
 
     MDCParallaxView *parallaxView = [[MDCParallaxView alloc] initWithBackgroundView:backgroundImageView
@@ -65,6 +66,7 @@
     parallaxView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     parallaxView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     parallaxView.backgroundHeight = 250.0f;
+    parallaxView.scrollView.scrollsToTop = YES;
     parallaxView.scrollViewDelegate = self;
     [self.view addSubview:parallaxView];
 }
