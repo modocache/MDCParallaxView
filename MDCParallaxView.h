@@ -42,4 +42,9 @@
 - (id)initWithBackgroundView:(UIView *)backgroundView
               foregroundView:(UIView *)foregroundView;
 
+/// Update the scroll views contentSize property
+/// NB: useful if your content is remotely fetched
+- (void)updateBackgroundFrame;
+- (void)updateForegroundFrame;
+
 @end
