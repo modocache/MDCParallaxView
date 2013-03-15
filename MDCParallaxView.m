@@ -34,6 +34,8 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 @property (nonatomic, strong) UIView *foregroundView;
 @property (nonatomic, strong) UIScrollView *backgroundScrollView;
 @property (nonatomic, strong) UIScrollView *foregroundScrollView;
+- (void)updateBackgroundFrame;
+- (void)updateForegroundFrame;
 - (void)updateContentOffset;
 @end
 
@@ -63,8 +65,16 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
         _foregroundScrollView.delegate = self;
         [_foregroundScrollView addSubview:_foregroundView];
         [self addSubview:_foregroundScrollView];
+        
+        [self addObserver:self forKeyPath:@"foregroundView.frame" options:NSKeyValueObservingOptionOld context:NULL];
+        [self addObserver:self forKeyPath:@"backgroundView.frame" options:NSKeyValueObservingOptionOld context:NULL];
     }
     return self;
+}
+
+- (void)dealloc {
+    [self removeObserver:self forKeyPath:@"foregroundView.frame"];
+    [self removeObserver:self forKeyPath:@"backgroundView.frame"];
 }
 
 
@@ -165,6 +175,17 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
         self.backgroundScrollView.contentOffset = CGPointMake(0.0f, offsetY + floorf(threshold/2));
     } else {
         self.backgroundScrollView.contentOffset = CGPointMake(0.0f, offsetY);
+    }
+}
+
+
+#pragma mark - Key-Value Observing
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if([keyPath isEqualToString:@"foregroundView.frame"]) {
+        [self updateForegroundFrame];
+    } else if ([keyPath isEqualToString:@"backgroundView.frame"]) {
+        [self updateBackgroundFrame];
     }
 }
 
