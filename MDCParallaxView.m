@@ -182,19 +182,25 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 #pragma mark - Key-Value Observing
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if([keyPath isEqualToString:@"foregroundView.frame"]) {
-        static BOOL updateForegroundFrameUpdating = NO;
-        if (updateForegroundFrameUpdating == NO) {
-            updateForegroundFrameUpdating = YES;
-            [self updateForegroundFrame];
-            updateForegroundFrameUpdating = NO;
+    if([keyPath isEqualToString:@"foregroundView.frame"] || [keyPath isEqualToString:@"backgroundView.frame"]) {
+        CGRect oldFrame = CGRectNull;
+        CGRect newFrame = CGRectNull;
+        if([change objectForKey:@"old"] != [NSNull null]) {
+            oldFrame = [[change objectForKey:@"old"] CGRectValue];
         }
-    } else if ([keyPath isEqualToString:@"backgroundView.frame"]) {
-        static BOOL updateBackgroundFrameUpdating = NO;
-        if (updateBackgroundFrameUpdating == NO) {
-            updateBackgroundFrameUpdating = YES;
+        if([object valueForKeyPath:keyPath] != [NSNull null]) {
+            newFrame = [[object valueForKeyPath:keyPath] CGRectValue];
+        }
+        
+        if (CGRectEqualToRect(oldFrame, newFrame)) {
+            // avoid infite loops
+            return;
+        }
+        
+        if([keyPath isEqualToString:@"foregroundView.frame"]) {
+            [self updateForegroundFrame];
+        } else if ([keyPath isEqualToString:@"backgroundView.frame"]) {
             [self updateBackgroundFrame];
-            updateBackgroundFrameUpdating = NO;
         }
     }
 }
