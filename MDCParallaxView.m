@@ -183,9 +183,19 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if([keyPath isEqualToString:@"foregroundView.frame"]) {
-        [self updateForegroundFrame];
+        static BOOL updateForegroundFrameUpdating = NO;
+        if (updateForegroundFrameUpdating == NO) {
+            updateForegroundFrameUpdating = YES;
+            [self updateForegroundFrame];
+            updateForegroundFrameUpdating = NO;
+        }
     } else if ([keyPath isEqualToString:@"backgroundView.frame"]) {
-        [self updateBackgroundFrame];
+        static BOOL updateBackgroundFrameUpdating = NO;
+        if (updateBackgroundFrameUpdating == NO) {
+            updateBackgroundFrameUpdating = YES;
+            [self updateBackgroundFrame];
+            updateBackgroundFrameUpdating = NO;
+        }
     }
 }
 
