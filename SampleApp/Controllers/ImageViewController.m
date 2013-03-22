@@ -67,6 +67,7 @@
     parallaxView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     parallaxView.backgroundHeight = 250.0f;
     parallaxView.scrollView.scrollsToTop = YES;
+    parallaxView.backgroundInteractionEnabled = YES;
     parallaxView.scrollViewDelegate = self;
     [self.view addSubview:parallaxView];
 }

@@ -34,6 +34,8 @@
 @property (nonatomic, weak) id<UIScrollViewDelegate> scrollViewDelegate;
 /// The height of the background view when at rest.
 @property (nonatomic, assign) CGFloat backgroundHeight;
+/// YES if the backgroundView should handle touch input. 
+@property (nonatomic, getter = isBackgroundInteractionEnabled) BOOL backgroundInteractionEnabled;
 
 /// *Designated initializer.* Creates a MDCParallaxView with the given views.
 /// @param backgroundView The view to be displayed in the background. This view scrolls slower than the foreground, creating the illusion that it is "further away".
