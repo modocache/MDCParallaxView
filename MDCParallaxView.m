@@ -36,9 +36,6 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 @property (nonatomic, strong) UIView *foregroundView;
 @property (nonatomic, strong) UIScrollView *backgroundScrollView;
 @property (nonatomic, strong) UIScrollView *foregroundScrollView;
-- (void)updateBackgroundFrame;
-- (void)updateForegroundFrame;
-- (void)updateContentOffset;
 @end
 
 
