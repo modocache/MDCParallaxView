@@ -26,6 +26,8 @@
 #import "MDCParallaxView.h"
 
 
+static void * kMDCForegroundViewObservationContext = &kMDCForegroundViewObservationContext;
+static void * kMDCBackgroundViewObservationContext = &kMDCBackgroundViewObservationContext;
 static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 
 
@@ -66,15 +68,28 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
         [_foregroundScrollView addSubview:_foregroundView];
         [self addSubview:_foregroundScrollView];
         
-        [self addObserver:self forKeyPath:@"foregroundView.frame" options:NSKeyValueObservingOptionOld context:NULL];
-        [self addObserver:self forKeyPath:@"backgroundView.frame" options:NSKeyValueObservingOptionOld context:NULL];
+        [self addFrameObservers];
     }
     return self;
 }
 
 - (void)dealloc {
-    [self removeObserver:self forKeyPath:@"foregroundView.frame"];
-    [self removeObserver:self forKeyPath:@"backgroundView.frame"];
+    [self removeFrameObservers];
+}
+
+
+#pragma mark - NSKeyValueObserving Protocol Methods
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context == kMDCForegroundViewObservationContext) {
+        CGRect oldFrame = [self frameForObject:[change objectForKey:@"old"]];
+        [self updateForegroundFrameIfDifferent:oldFrame];
+    } else if (context == kMDCBackgroundViewObservationContext) {
+        CGRect oldFrame = [self frameForObject:[change objectForKey:@"old"]];
+        [self updateBackgroundFrameIfDifferent:oldFrame];
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 
@@ -137,6 +152,40 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 
 #pragma mark - Internal Methods
 
+#pragma mark Key-Value Observing
+
+- (void)addFrameObservers {
+    [self addObserver:self forKeyPath:@"foregroundView.frame"
+              options:NSKeyValueObservingOptionOld
+              context:kMDCForegroundViewObservationContext];
+    [self addObserver:self forKeyPath:@"backgroundView.frame"
+              options:NSKeyValueObservingOptionOld
+              context:kMDCBackgroundViewObservationContext];
+}
+
+- (void)removeFrameObservers {
+    [self removeObserver:self forKeyPath:@"foregroundView.frame"];
+    [self removeObserver:self forKeyPath:@"backgroundView.frame"];
+}
+
+- (void)updateForegroundFrameIfDifferent:(CGRect)oldFrame {
+    if (!CGRectEqualToRect(self.foregroundView.frame, oldFrame)) {
+        [self updateForegroundFrame];
+    }
+}
+
+- (void)updateBackgroundFrameIfDifferent:(CGRect)oldFrame {
+    if (!CGRectEqualToRect(self.backgroundView.frame, oldFrame)) {
+        [self updateBackgroundFrame];
+    }
+}
+
+- (CGRect)frameForObject:(id)frameObject {
+    return frameObject == [NSNull null] ? CGRectNull : [frameObject CGRectValue];
+}
+
+#pragma mark Parallax Effect
+
 - (void)updateBackgroundFrame {
     self.backgroundScrollView.frame = CGRectMake(0.0f,
                                                  0.0f,
@@ -175,33 +224,6 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
         self.backgroundScrollView.contentOffset = CGPointMake(0.0f, offsetY + floorf(threshold/2));
     } else {
         self.backgroundScrollView.contentOffset = CGPointMake(0.0f, offsetY);
-    }
-}
-
-
-#pragma mark - Key-Value Observing
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if([keyPath isEqualToString:@"foregroundView.frame"] || [keyPath isEqualToString:@"backgroundView.frame"]) {
-        CGRect oldFrame = CGRectNull;
-        CGRect newFrame = CGRectNull;
-        if([change objectForKey:@"old"] != [NSNull null]) {
-            oldFrame = [[change objectForKey:@"old"] CGRectValue];
-        }
-        if([object valueForKeyPath:keyPath] != [NSNull null]) {
-            newFrame = [[object valueForKeyPath:keyPath] CGRectValue];
-        }
-        
-        if (CGRectEqualToRect(oldFrame, newFrame)) {
-            // avoid infite loops
-            return;
-        }
-        
-        if([keyPath isEqualToString:@"foregroundView.frame"]) {
-            [self updateForegroundFrame];
-        } else if ([keyPath isEqualToString:@"backgroundView.frame"]) {
-            [self updateBackgroundFrame];
-        }
     }
 }
 
