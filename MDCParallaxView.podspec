@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'MDCParallaxView'
-  s.version      = '0.1.0'
+  s.version      = '0.1.2'
   s.summary      = 'Create a parallax effect using a custom container view, much like the top view of Path\'s timeline.'
   s.homepage     = 'https://github.com/modocache/MDCParallaxView'
   s.license      = 'MIT'
