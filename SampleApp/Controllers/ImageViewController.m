@@ -45,6 +45,9 @@
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:backgroundRect];
     backgroundImageView.image = backgroundImage;
     backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [backgroundImageView addGestureRecognizer:tapGesture];
 
     CGRect textRect = CGRectMake(0, 0, self.view.frame.size.width, 400.0f);
     UITextView *textView = [[UITextView alloc] initWithFrame:textRect];
@@ -67,10 +70,15 @@
     parallaxView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     parallaxView.backgroundHeight = 250.0f;
     parallaxView.scrollView.scrollsToTop = YES;
+    parallaxView.backgroundInteractionEnabled = YES;
     parallaxView.scrollViewDelegate = self;
     [self.view addSubview:parallaxView];
 }
 
+- (void)handleTap:(UIGestureRecognizer *)gesture
+{
+    NSLog(@"%s",__FUNCTION__);
+}
 
 #pragma mark - UIScrollViewDelegate Protocol Methods
 

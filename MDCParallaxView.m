@@ -30,7 +30,6 @@ static void * kMDCForegroundViewObservationContext = &kMDCForegroundViewObservat
 static void * kMDCBackgroundViewObservationContext = &kMDCBackgroundViewObservationContext;
 static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 
-
 @interface MDCParallaxView () <UIScrollViewDelegate>
 @property (nonatomic, strong) UIView *backgroundView;
 @property (nonatomic, strong) UIView *foregroundView;
@@ -222,6 +221,17 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
     } else {
         self.backgroundScrollView.contentOffset = CGPointMake(0.0f, offsetY);
     }
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if ([self.backgroundView pointInside:point withEvent:event] && _backgroundInteractionEnabled){
+        CGFloat visibleBackgroundViewHeight = self.backgroundHeight - self.foregroundScrollView.contentOffset.y;
+        if (point.y < visibleBackgroundViewHeight){
+            return self.backgroundView;
+        }
+    }
+    return [super hitTest:point withEvent:event];
 }
 
 @end
