@@ -75,14 +75,17 @@
     [self.view addSubview:parallaxView];
 }
 
-- (void)handleTap:(UIGestureRecognizer *)gesture
-{
-    NSLog(@"%s",__FUNCTION__);
-}
 
 #pragma mark - UIScrollViewDelegate Protocol Methods
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    NSLog(@"%@:%@", [self class], NSStringFromSelector(_cmd));
+}
+
+
+#pragma mark - Internal Methods
+
+- (void)handleTap:(UIGestureRecognizer *)gesture {
     NSLog(@"%@:%@", [self class], NSStringFromSelector(_cmd));
 }
 

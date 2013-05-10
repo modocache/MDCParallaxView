@@ -122,6 +122,17 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
     self.foregroundScrollView.autoresizingMask = autoresizingMask;
 }
 
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    if ([self.backgroundView pointInside:point withEvent:event] && _backgroundInteractionEnabled){
+        CGFloat visibleBackgroundViewHeight = self.backgroundHeight - self.foregroundScrollView.contentOffset.y;
+        if (point.y < visibleBackgroundViewHeight){
+            return self.backgroundView;
+        }
+    }
+
+    return [super hitTest:point withEvent:event];
+}
+
 
 #pragma mark - UIScrollViewDelegate Protocol Methods
 
@@ -221,17 +232,6 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
     } else {
         self.backgroundScrollView.contentOffset = CGPointMake(0.0f, offsetY);
     }
-}
-
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
-{
-    if ([self.backgroundView pointInside:point withEvent:event] && _backgroundInteractionEnabled){
-        CGFloat visibleBackgroundViewHeight = self.backgroundHeight - self.foregroundScrollView.contentOffset.y;
-        if (point.y < visibleBackgroundViewHeight){
-            return self.backgroundView;
-        }
-    }
-    return [super hitTest:point withEvent:event];
 }
 
 @end
