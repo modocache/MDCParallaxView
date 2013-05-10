@@ -126,7 +126,7 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
     if ([self.backgroundView pointInside:point withEvent:event] && _backgroundInteractionEnabled){
         CGFloat visibleBackgroundViewHeight = self.backgroundHeight - self.foregroundScrollView.contentOffset.y;
         if (point.y < visibleBackgroundViewHeight){
-            return self.backgroundView;
+            return [self.backgroundView hitTest:point withEvent:event];
         }
     }
 
