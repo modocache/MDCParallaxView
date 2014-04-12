@@ -41,7 +41,7 @@
     [super viewDidLoad];
 
     UIImage *backgroundImage = [UIImage imageNamed:@"background.png"];
-    CGRect backgroundRect = CGRectMake(0, 0, self.view.frame.size.width, backgroundImage.size.height);
+    CGRect backgroundRect = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), backgroundImage.size.height);
     UIImageView *backgroundImageView = [[UIImageView alloc] initWithFrame:backgroundRect];
     backgroundImageView.image = backgroundImage;
     backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -50,7 +50,7 @@
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [backgroundImageView addGestureRecognizer:tapGesture];
 
-    CGRect textRect = CGRectMake(0, 0, self.view.frame.size.width, 400.0f);
+    CGRect textRect = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), 400.0f);
     UITextView *textView = [[UITextView alloc] initWithFrame:textRect];
     textView.text = NSLocalizedString(@"Permission is hereby granted, free of charge, to any "
                                       @"person obtaining a copy of this software and associated "
@@ -69,7 +69,7 @@
 
     MDCParallaxView *parallaxView = [[MDCParallaxView alloc] initWithBackgroundView:backgroundImageView
                                                                      foregroundView:textView];
-    parallaxView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    parallaxView.frame = self.view.bounds;
     parallaxView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     parallaxView.backgroundHeight = 250.0f;
     parallaxView.scrollView.scrollsToTop = YES;

@@ -1,0 +1,2 @@
+language: objective-c
+script: xcodebuild -project SampleApp.xcodeproj -scheme SampleApp -sdk iphonesimulator clean build
