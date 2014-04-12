@@ -1,6 +1,6 @@
 //  MDCParallaxView.m
 //
-//  Copyright (c) 2012 modocache
+//  Copyright (c) 2012, 2014 to present, Brian Gesiak @modocache
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
 //  a copy of this software and associated documentation files (the
@@ -76,12 +76,15 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 
 #pragma mark - NSKeyValueObserving Protocol Methods
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
     if (context == kMDCForegroundViewObservationContext) {
-        CGRect oldFrame = [self frameForObject:[change objectForKey:@"old"]];
+        CGRect oldFrame = [self frameForObject:[change objectForKey:NSKeyValueChangeOldKey]];
         [self updateForegroundFrameIfDifferent:oldFrame];
     } else if (context == kMDCBackgroundViewObservationContext) {
-        CGRect oldFrame = [self frameForObject:[change objectForKey:@"old"]];
+        CGRect oldFrame = [self frameForObject:[change objectForKey:NSKeyValueChangeOldKey]];
         [self updateBackgroundFrameIfDifferent:oldFrame];
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -194,36 +197,32 @@ static CGFloat const kMDCParallaxViewDefaultHeight = 150.0f;
 #pragma mark Parallax Effect
 
 - (void)updateBackgroundFrame {
-    self.backgroundScrollView.frame = CGRectMake(0.0f,
-                                                 0.0f,
-                                                 self.frame.size.width,
-                                                 self.frame.size.height);
-    self.backgroundScrollView.contentSize = CGSizeMake(self.frame.size.width,
-                                                       self.frame.size.height);
+    self.backgroundScrollView.frame = self.bounds;
+    self.backgroundScrollView.contentSize = self.bounds.size;
     self.backgroundScrollView.contentOffset	= CGPointZero;
 
     self.backgroundView.frame =
         CGRectMake(0.0f,
-                   floorf((self.backgroundHeight - self.backgroundView.frame.size.height)/2),
-                   self.frame.size.width,
-                   self.backgroundView.frame.size.height);
+                   floorf((self.backgroundHeight -  CGRectGetHeight(self.backgroundView.frame))/2),
+                   CGRectGetWidth(self.frame),
+                   CGRectGetHeight(self.backgroundView.frame));
 }
 
 - (void)updateForegroundFrame {
     self.foregroundView.frame = CGRectMake(0.0f,
                                            self.backgroundHeight,
-                                           self.foregroundView.frame.size.width,
-                                           self.foregroundView.frame.size.height);
+                                           CGRectGetWidth(self.foregroundView.frame),
+                                           CGRectGetHeight(self.foregroundView.frame));
 
     self.foregroundScrollView.frame = self.bounds;
     self.foregroundScrollView.contentSize =
-        CGSizeMake(self.foregroundView.frame.size.width,
-                   self.foregroundView.frame.size.height + self.backgroundHeight);
+        CGSizeMake(CGRectGetWidth(self.foregroundView.frame),
+                   CGRectGetHeight(self.foregroundView.frame) + self.backgroundHeight);
 }
 
 - (void)updateContentOffset {
     CGFloat offsetY   = self.foregroundScrollView.contentOffset.y;
-    CGFloat threshold = self.backgroundView.frame.size.height - self.backgroundHeight;
+    CGFloat threshold = CGRectGetHeight(self.backgroundView.frame) - self.backgroundHeight;
 
     if (offsetY > -threshold && offsetY < 0.0f) {
         self.backgroundScrollView.contentOffset = CGPointMake(0.0f, floorf(offsetY/2));

@@ -1,6 +1,6 @@
 //  AppDelegate.m
 //
-//  Copyright (c) 2012 modocache
+//  Copyright (c) 2012, 2014 to present, Brian Gesiak @modocache
 //
 //  Permission is hereby granted, free of charge, to any person obtaining
 //  a copy of this software and associated documentation files (the

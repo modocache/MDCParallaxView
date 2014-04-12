@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DAA4C77318F8C72E00F6C4D6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DAA4C77218F8C72E00F6C4D6 /* Default-568h@2x.png */; };
 		DAB84CFB164755DE000AB1FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB84CFA164755DE000AB1FE /* UIKit.framework */; };
 		DAB84CFD164755DE000AB1FE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB84CFC164755DE000AB1FE /* Foundation.framework */; };
 		DAB84CFF164755DE000AB1FE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAB84CFE164755DE000AB1FE /* CoreGraphics.framework */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DAA4C77218F8C72E00F6C4D6 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		DAB84CF6164755DE000AB1FE /* SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAB84CFA164755DE000AB1FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		DAB84CFC164755DE000AB1FE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -114,6 +116,7 @@
 		DAC3D8E316475B2A00320551 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DAA4C77218F8C72E00F6C4D6 /* Default-568h@2x.png */,
 				DAC3D8E416475B2A00320551 /* background.png */,
 			);
 			path = Resources;
@@ -145,7 +148,7 @@
 		DAB84CED164755DE000AB1FE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = modocache;
 			};
 			buildConfigurationList = DAB84CF0164755DE000AB1FE /* Build configuration list for PBXProject "SampleApp" */;
@@ -172,6 +175,7 @@
 			files = (
 				DAB84D05164755DE000AB1FE /* InfoPlist.strings in Resources */,
 				DAC3D8E516475B2A00320551 /* background.png in Resources */,
+				DAA4C77318F8C72E00F6C4D6 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,6 +230,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
