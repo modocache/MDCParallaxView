@@ -46,18 +46,21 @@
     backgroundImageView.image = backgroundImage;
     backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    UITapGestureRecognizer *tapGesture =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
     [backgroundImageView addGestureRecognizer:tapGesture];
 
     CGRect textRect = CGRectMake(0, 0, self.view.frame.size.width, 400.0f);
     UITextView *textView = [[UITextView alloc] initWithFrame:textRect];
-    textView.text = NSLocalizedString(@"Permission is hereby granted, free of charge, to any person obtaining "
-                                      @"a copy of this software and associated documentation files (the "
-                                      @"\"Software\"), to deal in the Software without restriction, including "
-                                      @"without limitation the rights to use, copy, modify, merge, publish, "
-                                      @"distribute, sublicense, and/or sell copies of the Software, and to "
-                                      @"permit persons to whom the Software is furnished to do so, subject to "
-                                      @"the following conditions...\"", nil);
+    textView.text = NSLocalizedString(@"Permission is hereby granted, free of charge, to any "
+                                      @"person obtaining a copy of this software and associated "
+                                      @"documentation files (the \"Software\"), to deal in the "
+                                      @"Software without restriction, including without limitation "
+                                      @"the rights to use, copy, modify, merge, publish, "
+                                      @"distribute, sublicense, and/or sell copies of the "
+                                      @"Software, and to permit persons to whom the Software is "
+                                      @"furnished to do so, subject to the following "
+                                      @"conditions...\"", nil);
     textView.textAlignment = NSTextAlignmentCenter;
     textView.font = [UIFont systemFontOfSize:14.0f];
     textView.textColor = [UIColor darkTextColor];
