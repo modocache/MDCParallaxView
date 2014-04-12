@@ -1,6 +1,6 @@
 ## MDCParallaxView
 
-[![Build Status](https://travis-ci.org/modocache/MDCParallaxViewe.svg?branch=master)](https://travis-ci.org/modocache/MDCParallaxView)
+[![Build Status](https://travis-ci.org/modocache/MDCParallaxView.svg?branch=master)](https://travis-ci.org/modocache/MDCParallaxView)
 
 Create a parallax effect using a custom container view,
 much like the top view of Path's timeline.
